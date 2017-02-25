@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,7 +135,9 @@ public class AppAdapter extends ArrayAdapter<App> {
                                         String json = gson.toJson(favApps);
 
                                         sharedPreferences.edit().putString("favs", json).apply();
-                                        favoritesActivity.refresh();
+                                       if(favoritesActivity != null) {
+                                           favoritesActivity.refresh();
+                                       }
                                     }
                                 })
                                 .setNegativeButton("No", null)
