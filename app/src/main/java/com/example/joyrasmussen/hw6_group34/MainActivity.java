@@ -145,12 +145,43 @@ public class MainActivity extends AppCompatActivity {
 
         if(dataRetrieved) {
 
-            appList.setVisibility(View.INVISIBLE);
+            sharedPreferences = this.getSharedPreferences("com.example.joyrasmussen.hw6_group34", Context.MODE_PRIVATE);
+            Gson gson = new Gson();
+            String json = sharedPreferences.getString("favs", "");
 
-            progress.setVisibility(View.VISIBLE);
-            loading.setVisibility(View.VISIBLE);
+            if (!json.isEmpty()) {
+                Type type = new TypeToken<ArrayList<App>>() {
+                }.getType();
+                ArrayList<App> favApps = gson.fromJson(json, type);
 
-            new AsyncJson(this).execute();
+                for (App a : appArray) { //This compares the favorite apps in SharedPrefs to the current apps on the page
+                                         //if a current app is marked as a favorite, but it is not found in SharedPrefs then
+                                        //it no longer is marked as a favorite. The adapter is then reloaded.
+                    boolean notFoundInFavs = true;
+                    boolean fav = false;
+
+                    if(a.getFavorite() == true){
+                        fav = true;
+                    }
+
+                    for (App favApp : favApps) {
+                        if(a.getName().equals(favApp.getName())){
+                            notFoundInFavs = false;
+                        }
+                    }
+
+                    if(fav == true && notFoundInFavs == true){
+                        a.setFavorite(false);
+                    }
+                }
+
+                appAdapter = new AppAdapter(this, R.layout.app_layout, appArray);
+                appAdapter.setNotifyOnChange(true);
+                appList.setAdapter(appAdapter);
+                appAdapter.notifyDataSetChanged();
+
+
+            }
         }
     }
 }
