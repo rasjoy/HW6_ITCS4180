@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">HW6_Group34</string>
+    <string name="app_name">Itunes Top Paid Apps</string>
+    <string name="refresh">Refresh List</string>
+    <string name="favorites">Favorites</string>
+    <string name="increasingly">Sort Increasingly</string>
+    <string name="decreasingly">Sort Decreasingly</string>
 </resources>
