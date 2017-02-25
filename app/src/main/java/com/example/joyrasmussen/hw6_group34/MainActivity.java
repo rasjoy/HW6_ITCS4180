@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), FavoritesActivity.class);
                 startActivity(i);
 
-
                 return true;
             case R.id.increase:
                 sortIncreasing();

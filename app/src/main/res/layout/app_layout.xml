@@ -19,7 +19,7 @@
         android:layout_weight="0.98" />
 
     <ImageButton
-        app:srcCompat="@drawable/white_star"
+        app:srcCompat="@mipmap/ic_launcher"
         android:id="@+id/favButton"
         android:scaleType="fitXY"
         android:layout_width="50dp"

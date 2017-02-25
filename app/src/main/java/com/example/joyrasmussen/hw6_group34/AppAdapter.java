@@ -45,7 +45,7 @@ public class AppAdapter extends ArrayAdapter<App> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder;
-        //if(convertView == null) {
+        if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(mresource, parent, false);
             holder  = new ViewHolder();
@@ -54,7 +54,7 @@ public class AppAdapter extends ArrayAdapter<App> {
             holder.favButton = (ImageButton) convertView.findViewById(R.id.favButton);
             convertView.setTag(holder);
 
-       // }
+        }
 
         final App app = data.get(position);
 
@@ -94,6 +94,8 @@ public class AppAdapter extends ArrayAdapter<App> {
 
         if(app.isFavorite){
             fav.setImageResource(R.drawable.black_star);
+        }else{
+            fav.setImageResource(R.drawable.white_star);
         }
 
         fav.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +116,7 @@ public class AppAdapter extends ArrayAdapter<App> {
                                         for (App a : favApps) {
                                             if (a.getName().equals(app.getName())) {
                                                 favApps.remove(a);
+                                                break;
                                             }
                                         }
 
