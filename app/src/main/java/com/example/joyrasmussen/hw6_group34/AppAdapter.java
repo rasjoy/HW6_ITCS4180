@@ -32,12 +32,22 @@ public class AppAdapter extends ArrayAdapter<App> {
     int mresource;
     SharedPreferences sharedPreferences;
     ArrayList<App> favApps;
+    FavoritesActivity favoritesActivity;
 
     public AppAdapter(Context context, int resource, List<App> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.data = objects;
         this.mresource = resource;
+        favoritesActivity = null;
+    }
+
+    public AppAdapter(Context context, int resource, List<App> objects, FavoritesActivity favoritesActivity) {
+        super(context, resource, objects);
+        this.mContext = context;
+        this.data = objects;
+        this.mresource = resource;
+        this.favoritesActivity = favoritesActivity;
     }
 
     @NonNull
@@ -121,21 +131,30 @@ public class AppAdapter extends ArrayAdapter<App> {
                                         String json = gson.toJson(favApps);
 
                                         sharedPreferences.edit().putString("favs", json).apply();
+                                        favoritesActivity.refresh();
                                     }
                                 })
                                 .setNegativeButton("No", null)
                                 .show();
 
                     } else {
-                        fav.setImageResource(R.drawable.black_star);
-                        app.setFavorite(true);
-                        favApps.add(app);
 
-                        Gson gson = new Gson();
-                        String json = gson.toJson(favApps);
+                        new AlertDialog.Builder(mContext).setTitle("Add app?")
+                                .setMessage("Add this app to favorites?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        fav.setImageResource(R.drawable.black_star);
+                                        app.setFavorite(true);
+                                        favApps.add(app);
 
-                        sharedPreferences.edit().putString("favs", json).apply();
+                                        Gson gson = new Gson();
+                                        String json = gson.toJson(favApps);
 
+                                        sharedPreferences.edit().putString("favs", json).apply();
+                                    }
+                                }).setNegativeButton("No", null)
+                                .show();
 
                     }
                 } catch (ConcurrentModificationException e){

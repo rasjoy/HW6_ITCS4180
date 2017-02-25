@@ -22,6 +22,7 @@ public class FavoritesActivity extends AppCompatActivity {
 
     ArrayList<App> favApps;
     Gson gson;
+    AppAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,29 +41,29 @@ public class FavoritesActivity extends AppCompatActivity {
             }.getType();
             favApps = gson.fromJson(json, type);
 
-            final AppAdapter adapter = new AppAdapter(this, R.layout.app_layout, favApps);
+            adapter = new AppAdapter(this, R.layout.app_layout, favApps, this);
             listView.setAdapter(adapter);
             adapter.setNotifyOnChange(true);
-
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    gson = new Gson();
-                    String json = sharedPreferences.getString("favs", "");
-                    Type type = new TypeToken<ArrayList<App>>() {
-                    }.getType();
-                    favApps = gson.fromJson(json, type);
-
-                    adapter.notifyDataSetChanged();
-
-                }
-            });
-
-
         }
 
 
+    }
+
+    public void refresh(){
+        sharedPreferences = this.getSharedPreferences("com.example.joyrasmussen.hw6_group34", Context.MODE_PRIVATE);
+        ListView listView = (ListView) findViewById(R.id.favsListView);
+        gson = new Gson();
+        String json = sharedPreferences.getString("favs", "");
+
+        if(!json.isEmpty()) {
+            Type type = new TypeToken<ArrayList<App>>() {
+            }.getType();
+            favApps = gson.fromJson(json, type);
+
+            adapter = new AppAdapter(this, R.layout.app_layout, favApps, this);
+            listView.setAdapter(adapter);
+            adapter.setNotifyOnChange(true);
+        }
     }
 
     public void finish(View view){
