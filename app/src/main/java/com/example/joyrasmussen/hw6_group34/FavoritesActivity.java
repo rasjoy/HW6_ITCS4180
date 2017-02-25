@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -40,7 +41,10 @@ public class FavoritesActivity extends AppCompatActivity {
             Type type = new TypeToken<ArrayList<App>>() {
             }.getType();
             favApps = gson.fromJson(json, type);
+            if (favApps.size() == 0){
+                Toast.makeText(this, "You have no favorite apps.", Toast.LENGTH_LONG).show();
 
+            }
             adapter = new AppAdapter(this, R.layout.app_layout, favApps, this);
             listView.setAdapter(adapter);
             adapter.setNotifyOnChange(true);
