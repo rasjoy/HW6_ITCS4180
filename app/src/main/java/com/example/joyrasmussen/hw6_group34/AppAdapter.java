@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 /**
@@ -44,8 +46,22 @@ public class AppAdapter extends ArrayAdapter<Apps> {
 
         }
 
+        Apps app = data.get(position);
 
 
+        holder = (ViewHolder) convertView.getTag();
+        TextView text = holder.appText;
+        ImageView image = holder.image;
+        ImageButton fav = holder.favButton;
+        if(app.isFav()){
+            fav.setBackgroundResource(R.drawable.black_star);
+        }
+        text.setText(app.toString());
+
+        if(app.getImageURL() != null){
+            Picasso.with(convertView.getContext()).load(app.getImageURL()).into(image);
+        }
+        
 
         return convertView;
 
