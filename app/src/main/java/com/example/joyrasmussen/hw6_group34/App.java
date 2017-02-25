@@ -15,6 +15,18 @@ public class App implements Serializable{
         this.isFavorite = false;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public App() {
+        this.isFavorite = false;
+    }
+
     public String getName() {
         return name;
     }

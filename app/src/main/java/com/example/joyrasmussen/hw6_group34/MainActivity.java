@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         loading = (TextView) findViewById(R.id.loadText);
         appList = (ListView) findViewById(R.id.appList);
 
+        new AsyncJson(this).execute();
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
