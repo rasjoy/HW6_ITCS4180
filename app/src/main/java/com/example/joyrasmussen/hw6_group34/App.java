@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class App implements Serializable{
 
-    String name, price, imageURL;
+    String name, price, currency, imageURL;
     Boolean isFavorite;
 
     public App(String name, String price, String imageURL) {
@@ -45,5 +45,10 @@ public class App implements Serializable{
 
     public void setFavorite(Boolean favorite) {
         isFavorite = favorite;
+    }
+
+    @Override
+    public String toString() {
+        return  name + "\nPrice: " + currency + " " + price ;
     }
 }

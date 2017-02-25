@@ -18,12 +18,12 @@ import java.util.List;
  * Created by joyrasmussen on 2/25/17.
  */
 
-public class AppAdapter extends ArrayAdapter<Apps> {
+public class AppAdapter extends ArrayAdapter<App> {
     Context mContext;
-    List<Apps> data;
+    List<App> data;
     int mresource;
 
-    public AppAdapter(Context context, int resource, List<Apps> objects) {
+    public AppAdapter(Context context, int resource, List<App> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.data = objects;
@@ -46,14 +46,14 @@ public class AppAdapter extends ArrayAdapter<Apps> {
 
         }
 
-        Apps app = data.get(position);
+        App app = data.get(position);
 
 
         holder = (ViewHolder) convertView.getTag();
         TextView text = holder.appText;
         ImageView image = holder.image;
         ImageButton fav = holder.favButton;
-        if(app.isFav()){
+        if(app.isFavorite){
             fav.setBackgroundResource(R.drawable.black_star);
         }
         text.setText(app.toString());
@@ -61,7 +61,7 @@ public class AppAdapter extends ArrayAdapter<Apps> {
         if(app.getImageURL() != null){
             Picasso.with(convertView.getContext()).load(app.getImageURL()).into(image);
         }
-        
+
 
         return convertView;
 
