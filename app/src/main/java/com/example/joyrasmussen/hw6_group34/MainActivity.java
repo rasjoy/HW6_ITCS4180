@@ -8,12 +8,20 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<Apps> appArray;
+    ArrayList<App> appArray;
     SharedPreferences sharedPreferences;
+    ProgressBar progress;
+    TextView loading;
+    ListView appList;
+    AppAdapter appAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sharedPreferences = this.getSharedPreferences("com.example.joyrasmussen.hw6_group34", Context.MODE_PRIVATE);
-
+        progress = (ProgressBar) findViewById(R.id.progress);
+        loading = (TextView) findViewById(R.id.loadText);
+        appList = (ListView) findViewById(R.id.appList);
 
     }
     @Override
@@ -51,7 +61,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setAppArray(ArrayList<Apps> array){
+    public void setAppArray(ArrayList<App> array){
+        progress.setVisibility(View.INVISIBLE);
+        loading.setVisibility(View.INVISIBLE);
+
+        appArray = array;
+
+        appAdapter = new AppAdapter(this, R.layout.app_layout, appArray);
+        appAdapter.setNotifyOnChange(true);
+        appList.setAdapter(appAdapter);
+
 
 
     }

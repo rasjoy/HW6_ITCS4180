@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by joyrasmussen on 2/25/17.
  */
 
-public class AsyncJson extends AsyncTask<Void, Void, ArrayList<Apps>>{
+public class AsyncJson extends AsyncTask<Void, Void, ArrayList<App>>{
     MainActivity mainActivity;
     String ITUNES_RSS = "https://itunes.apple.com/us/rss/toppaidapplications/limit=25/json";
     public AsyncJson(MainActivity mainActivity){
@@ -17,7 +17,7 @@ public class AsyncJson extends AsyncTask<Void, Void, ArrayList<Apps>>{
 
 
     @Override
-    protected ArrayList<Apps> doInBackground(Void... params) {
+    protected ArrayList<App> doInBackground(Void... params) {
 
 
         return null;
