@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.refresh:
-
+                refresh();
                 return true;
             case R.id.favorites:
 
@@ -66,12 +66,21 @@ public class MainActivity extends AppCompatActivity {
     public void setAppArray(ArrayList<App> array){
         progress.setVisibility(View.INVISIBLE);
         loading.setVisibility(View.INVISIBLE);
+        appList.setVisibility(View.VISIBLE);
 
         appArray = array;
 
         appAdapter = new AppAdapter(this, R.layout.app_layout, appArray);
         appAdapter.setNotifyOnChange(true);
         appList.setAdapter(appAdapter);
+
+
+    }
+    public void refresh(){
+        appList.setVisibility(View.INVISIBLE);
+        new AsyncJson(this).execute();
+        progress.setVisibility(View.VISIBLE);
+        loading.setVisibility(View.VISIBLE);
 
 
 

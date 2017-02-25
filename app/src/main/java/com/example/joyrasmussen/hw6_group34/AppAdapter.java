@@ -73,5 +73,11 @@ public class AppAdapter extends ArrayAdapter<App> {
 
 
     }
+
+    public void clearData() {
+        // clear the data
+        data.clear();
+    }
+
 }
 
